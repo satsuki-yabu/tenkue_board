@@ -6,8 +6,9 @@
   </div>
   <div class="post_wrapper__content">
     <ul class="post_wrapper__content__post_list">
-      <% if @post.any?
-else "まだ投稿されたスレッドはありません。" %>
+      <% if @post.any? %>
+<% "まだ投稿されたスレッドはありません。" %>
+<% else %>
       <% @posts.each do |post| %>
       <li>
         <div class="post">
@@ -16,11 +17,11 @@ else "まだ投稿されたスレッドはありません。" %>
               <span>投稿者：投稿者名</span>
             </div>
             <div class="post__top_box__time">
-              <span>投稿日時：投稿日時</span>
+              <span><%= post.timestamps %></span>
             </div>
           </div>  
           <div class="post__middle_box">
-            <span>投稿内容</span>
+            <span><%= post.content %></span>
           </div>
           <div class="post__bottom_box">
             <ul class="post__bottom_box__user_actions">
@@ -34,6 +35,7 @@ else "まだ投稿されたスレッドはありません。" %>
               </li>
             </ul>
             <ul class="post__bottom_box__admin_actions">
+            <% end %>
               <li>編集</li>
               <li>削除</li>
             </ul>
