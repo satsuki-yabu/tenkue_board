@@ -13,14 +13,11 @@ class PostsController < ApplicationController
   end
 
   def create
-    post = Post.new(post_params)
-    @post = post
+    @post = Post.new(post_params) 
       if @post.save
-        flash[:success] = 'post が正常に投稿されました'
         redirect_to action: :index
       else
-        flash.now[:danger] = 'post が投稿されませんでした'
-        redirect_to action: :new
+        render :new
       end
     end
 
