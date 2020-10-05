@@ -1,8 +1,10 @@
 
- <% if model.errors.any? %>
-    <div class="vali_alert">
-      <ul>
-          <li>投稿欄が空欄、もしくは文字数が１４０文字を超えています。</li>
-          </ul>
-          </div>
-          <% end %>
+<% if model.errors.any? %>
+<div class="vali_alert">
+  <ul>
+    <% model.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %> 
