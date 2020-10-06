@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-resources :posts
+  root 'posts#index'
 
   devise_for :users, controllers: {
     registrations: 'users/registrations',
@@ -9,4 +9,6 @@ resources :posts
     post 'users/guest_sign_in', to: 'users/sessions#new_guest'
     get 'users/sign_out', to: 'devise/sessions#destroy'
   end
+
+  resources :posts
 end
