@@ -33,10 +33,4 @@ private
       params.require(:post).permit(:content)
   end
 
-  def confirm_user
-    set_post
-    if current_user.id != @post.user.id
-      redirect_to root_path, notice: 'アクセスできません'
-    end
-  end
 
