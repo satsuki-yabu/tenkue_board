@@ -11,14 +11,15 @@
   </head>
 
   <body>
-  <div class="notifications">
-      <% flash.each do |message_type, message| %>
-        <div class="<%= message_type %>"><%= message %></div>
-      <% end %>
+    <% flash.each do |message_type, message| %>
+      <div class="notifications">
+        <div class="<%= message_type %>"><%= message %></div>   
+      </div>
+    <% end %>
+
+    <div class="wrapper">
+      <%= render 'layouts/header' %>
+      <%= yield %>
     </div>
-  <div class="wrapper">
-  <%= render 'layouts/header' %>
-    <%= yield %>
-  </div>
   </body>
 </html>
