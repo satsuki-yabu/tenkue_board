@@ -16,7 +16,7 @@
             <span>投稿者：<%= post.user.name>さん</span>
           </div>
           <div class="post_detail__top_box__name">
-            <span>投稿日時：<%= post.updated_at.strftime("%Y-%m-%d %H:%M")</span>
+            <span>投稿日時：<%= post.updated_at.strftime("%Y-%m-%d %H:%M") %></span>
           </div>
         </div>  
         <div class="post_detail__middle_box">
@@ -34,8 +34,8 @@
             </li>
           </ul>
           <div class="post_detail__bottom_box__admin_actions">
-            編集
-            削除
+            <span><%= link_to "編集", edit_post_path(@post) %></span>
+            <span><%= link_to "編集", post_path(@post), nethod: delete %></span>
           </div>
         </div>
       </div>
@@ -49,9 +49,9 @@
           </div>
           <div class="comment_area__list__comment__right_box">
             <div class="comment_area__list__comment__right_box__info">
-              <span>編集</span>
-              <span>削除</span>
-              <span>投稿日時：投稿日時</span>
+              編集
+              削除
+              <span>投稿日時：投稿時間</span>
             </div>
             <div class="comment_area__list__comment__right_box__text">
               <span>コメント内容</span>
