@@ -34,8 +34,10 @@
             </li>
           </ul>
           <div class="post_detail__bottom_box__admin_actions">
-            <span><%= link_to "編集", "#" %></span>
-            <span><%= link_to "削除", "#" %></span>
+            <% if user_signed_in? && current_user.id == @post.user.id %>
+              <span><%= link_to "編集", "#" %></span>
+              <span><%= link_to "削除", "#" %></span>
+            <% end %>
           </div>
         </div>
       </div>
