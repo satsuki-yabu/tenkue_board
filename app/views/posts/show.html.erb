@@ -26,7 +26,11 @@
           <ul class="post_detail__bottom_box__user_actions">
             <li>
               <i class="far fa-comment-alt"></i>
-              <span>1</span>
+                <span>
+                  <% if @post.comments.count != 0 %>
+                    <%= @post.comments.count %>
+                  <% end %>
+                </span>
             </li>
             <li>
               <i class="far fa-heart"></i>
@@ -46,7 +50,6 @@
       <ul class="comment_area__list">
 
         <%# コメント表示機能 %>
-        <% if user_signed_in? %>
           <% @post.comments.each do |comment| %>
             <li class="comment_area__list__comment">
               <div class="comment_area__list__comment__left_box">
@@ -56,14 +59,13 @@
                 <div class="comment_area__list__comment__right_box__info">
                   編集
                   削除
-                  <span>投稿日時：</span>
+                  <span>投稿日時：<%= comment.created_at.strftime("%Y-%m-%d %H:%M") %></span>
                 </div>
                 <div class="comment_area__list__comment__right_box__text">
                   <span><%= comment.content %></span>
                 </div>
               </div>
             </li>
-          <% end %>
         <% end %>
       </ul>
 
