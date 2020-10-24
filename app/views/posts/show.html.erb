@@ -46,11 +46,11 @@
         </div>
       </div>
     </div>
+
+    <%# コメント表示機能 %>
     <div class="comment_area">
       <ul class="comment_area__list">
-
-        <%# コメント表示機能 %>
-          <% @post.comments.each do |comment| %>
+          <% @post.comments.includes_user.sorted_desc.each do |comment| %>
             <li class="comment_area__list__comment">
               <div class="comment_area__list__comment__left_box">
                 <span><%= comment.user.name %>さん</span>

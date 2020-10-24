@@ -28,7 +28,11 @@
                 <ul class="post__bottom_box__user_actions">
                   <li>
                     <i class="far fa-comment-alt"></i>
-                    <span>コメント</span>
+                    <span>
+                      <% if post.comments.count != 0 %>
+                        <%= post.comments.count %>
+                      <% end %>
+                  </span>
                   </li>
                   <li>
                     <i class="far fa-heart"></i>
