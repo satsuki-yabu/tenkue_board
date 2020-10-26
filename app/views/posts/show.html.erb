@@ -26,7 +26,11 @@
           <ul class="post_detail__bottom_box__user_actions">
             <li>
               <i class="far fa-comment-alt"></i>
-              <span>1</span>
+                <span>
+                  <% if @post.comments.count != 0 %>
+                    <%= @post.comments.count %>
+                  <% end %>
+                </span>
             </li>
             <li>
               <i class="far fa-heart"></i>
@@ -42,28 +46,47 @@
         </div>
       </div>
     </div>
+
+    <%# コメント表示機能 %>
     <div class="comment_area">
       <ul class="comment_area__list">
-      <%# コメントがある場合は、全てのコメントが表示されていること %>
-        <li class="comment_area__list__comment">
-          <div class="comment_area__list__comment__left_box">
-            <span>コメント投稿者</span>
-          </div>
-          <div class="comment_area__list__comment__right_box">
-            <div class="comment_area__list__comment__right_box__info">
-              編集
-              削除
-              <span>投稿日時：投稿時間</span>
-            </div>
-            <div class="comment_area__list__comment__right_box__text">
-              <span>コメント内容</span>
-            </div>
-          </div>
-        </li>
+          <% @post.comments.includes_user.sorted_desc.each do |comment| %>
+            <li class="comment_area__list__comment">
+              <div class="comment_area__list__comment__left_box">
+                <span><%= comment.user.name %>さん</span>
+              </div>
+              <div class="comment_area__list__comment__right_box">
+                <div class="comment_area__list__comment__right_box__info">
+                  編集
+                  削除
+                  <span>投稿日時：<%= comment.created_at.strftime("%Y-%m-%d %H:%M") %></span>
+                </div>
+                <div class="comment_area__list__comment__right_box__text">
+                  <span><%= comment.content %></span>
+                </div>
+              </div>
+            </li>
+        <% end %>
       </ul>
-      <div class="comment_area__form_box">
-        <%# コメントのフォームを設置 %>
-      </div>
+
+      <%# コメント送信フォーム %>
+      <% if user_signed_in? %>
+        <div class="comment_area__form_box">
+          <%= form_with model: [@post,@comment], local: true, class:"comment_area__form_box__form" do |f| %>
+            <div class="comment_area__form_box__form__field">
+              <%= f.text_area :content, placeholder: "コメントを入力" %>
+            </div>
+            <div class="comment_area__form_box__form__hidden_field">
+              <%= f.hidden_field :user_id, :value => current_user.id %>
+              <%= f.hidden_field :post_id, :value => @post.id %>
+            </div>
+            <div class="comment_area__form_box__form__action">
+              <%= f.submit value:"送信", class: "comment_area__form_box__form__action__btn", data: { disable_with: "送信" } %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+
     </div>
   </div>
 </div>
