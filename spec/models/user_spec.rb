@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  let(:user) { create (:user) }
+  let(:other_user) { create (:user) }
+  let(:post) { create(:post, user: user) }
+
   it 'メールアドレスが空白であると無効' do
     user = build(:user, email: nil)
     user.valid?
