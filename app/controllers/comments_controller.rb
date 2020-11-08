@@ -24,6 +24,7 @@ class CommentsController < ApplicationController
     if @comment.update(comment_params)
       redirect_to @post
     else
+      flash.now[:alert] = "コメントを(140文字以内で)入力してください。"
       render "posts/show"
     end
   end
