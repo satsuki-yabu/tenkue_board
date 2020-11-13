@@ -41,13 +41,13 @@ RSpec.describe User, type: :model do
         expect(user.errors[:password]).to include('は半角英字と半角数字のいずれとも含まれ、8文字以上32文字以下である必要があります')
       end
 
-      it 'password 長さが8桁未満の場合、無効' do
+      it 'password 長さが8文字未満の場合、無効' do
         user = build(:user, password: 'a'* 7)
         user.valid?
         expect(user.errors[:password]).to include('は半角英字と半角数字のいずれとも含まれ、8文字以上32文字以下である必要があります')
       end
 
-      it 'password 長さが32桁を超えた場合、無効' do
+      it 'password 長さが32文字を超えた場合、無効' do
         user = build(:user, password: 'a'* 33)
         user.valid?
         expect(user.errors[:password]).to include('は半角英字と半角数字のいずれとも含まれ、8文字以上32文字以下である必要があります')
