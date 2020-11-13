@@ -35,6 +35,17 @@ RSpec.describe User, type: :model do
     end
 
     context 'passward test' do
+
+      it 'パスワードが空白の場合、エラー' do
+        user = build(:user, password: '')
+        user.valid?
+        expect(user.errors[:password]).to include('は半角英字と半角数字のいずれとも含まれ、8文字以上32文字以下である必要があります')
+      end
+      # ８文字以上３２文字以下の場合有効
+
+      
+
+
       it '全角英字が含まれた場合、無効' do
         user = build(:user, password: 'A' * 8)
         user.valid?
