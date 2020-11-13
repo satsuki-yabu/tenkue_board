@@ -41,11 +41,7 @@ RSpec.describe User, type: :model do
         user.valid?
         expect(user.errors[:password]).to include('は半角英字と半角数字のいずれとも含まれ、8文字以上32文字以下である必要があります')
       end
-      # ８文字以上３２文字以下の場合有効
-
       
-
-
       it '全角英字が含まれた場合、無効' do
         user = build(:user, password: 'A' * 8)
         user.valid?
@@ -57,12 +53,23 @@ RSpec.describe User, type: :model do
         user.valid?
         expect(user.errors[:password]).to include('は半角英字と半角数字のいずれとも含まれ、8文字以上32文字以下である必要があります')
       end
+      
+      it 'password 長さが8文字以上の場合、有効' do
+        user = build(:user, password: 'aaaa1234')
+        expect(user).to be_valid
+      end
 
       it 'password 長さが32文字を超えた場合、無効' do
         user = build(:user, password: 'a'* 33)
         user.valid?
         expect(user.errors[:password]).to include('は半角英字と半角数字のいずれとも含まれ、8文字以上32文字以下である必要があります')
       end
+      
+      it 'password 長さが32文字以下の場合、有効' do
+        user = build(:user, password: 'aaaa1234'*4)
+        expect(user).to be_valid
+      end
+      
     end
   end
 end
