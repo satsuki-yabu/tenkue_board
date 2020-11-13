@@ -11,12 +11,6 @@ RSpec.describe Post, type: :model do
     expect(post.errors[:content]).to include("を入力してください")
   end
 
-  it "記事の中身がある場合、有効" do
-    expect(post).to be_valid
-    post.user_id = nil
-    expect(post).to_not be_valid	   
-  end	 
-
   it '記事の本文が１４０文字を超える場合、無効' do
     post = build(:post, content: 'a' * 141)
     post.valid?
