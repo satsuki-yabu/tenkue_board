@@ -1,25 +1,27 @@
 class PostsController < ApplicationController
-  
+  before_action :authenticate_user!, only: [:new, :create, :destroy, :update, :edit]
+
   def index
-    @posts = Post.all
+    @posts = Post.all.includes(:user).order("created_at DESC")
   end
 
   def show
     @post = Post.find(params[:id])
+    @comment = Comment.new
   end
 
   def new
-    @post = Post.new
+    @post = current_user.posts.build
   end
 
   def create
-    @post = Post.new(post_params) 
-      if @post.save
-        redirect_to action: :index
-      else
-        render :new
-      end
+    @post = current_user.posts.build(post_params)
+    if @post.save
+      redirect_to action: :index
+    else
+      render :new
     end
+  end
 
   def edit
     @post = Post.find(params[:id])
@@ -29,10 +31,13 @@ class PostsController < ApplicationController
     post = Post.find(params[:id])
     post.destroy
   end
+
 end
 
 
 private
-    def post_params
-        params.require(:post).permit(:content)
-    end
+  def post_params
+      params.require(:post).permit(:content)
+  end
+
+

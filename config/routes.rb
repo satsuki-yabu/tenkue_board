@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-resources :posts
+  root 'posts#index'
 
   devise_for :users, controllers: {
     registrations: 'users/registrations',
@@ -7,5 +7,9 @@ resources :posts
   }
   devise_scope :user do
     post 'users/guest_sign_in', to: 'users/sessions#new_guest'
+  end
+
+  resources :posts do
+    resources :comments
   end
 end
