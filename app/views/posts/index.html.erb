@@ -4,44 +4,53 @@
       <span>投稿一覧</span>
     </h3>
   </div>
+
   <div class="post_wrapper__content">
     <ul class="post_wrapper__content__post_list">
       <% if @posts.any? %>
-      <% @posts.each do |post| %>
-        <li>
-          <div class="post">
-            <div class="post__top_box">
-              <div class="post__top_box__name">
-                <span>投稿者：投稿者名</span>
+        <% @posts.each do |post| %>
+          <li>
+            <div class="post">
+              <%= link_to post_path(post) do %>
+                <div class="post__top_box">
+                  <div class="post__top_box__name">
+                    <span><%= post.user.name %>さん</span>
+                  </div>
+                  <div class="post__top_box__time">
+                    <span>投稿日時 <%= post.updated_at.strftime("%Y-%m-%d %H:%M") %></span>
+                  </div>
+                </div>  
+                <div class="post__middle_box">
+                  <span><%= post.content %></span>
+                </div>
+              <% end %>
+              <div class="post__bottom_box">
+                <ul class="post__bottom_box__user_actions">
+                  <li>
+                    <i class="far fa-comment-alt"></i>
+                    <span>
+                      <% if post.comments.count != 0 %>
+                        <%= post.comments.count %>
+                      <% end %>
+                  </span>
+                  </li>
+                  <li>
+                    <i class="far fa-heart"></i>
+                    <span>いいね</span>
+                  </li>
+                </ul>
+                <ul class="post__bottom_box__admin_actions">
+                  <% if user_signed_in? && current_user.id == post.user.id %>
+                    <li><%= link_to '編集', "#"%></li>
+                    <li><%= link_to '削除', "#"%></li>
+                  <% end %>
+                </ul>
               </div>
-              <div class="post__top_box__time">
-                <span>投稿日時</span>
-              </div>
-            </div>  
-            <div class="post__middle_box">
-              <span>投稿記事</span>
             </div>
-            <div class="post__bottom_box">
-              <ul class="post__bottom_box__user_actions">
-                <li>
-                  <i class="far fa-comment-alt"></i>
-                  <span>1</span>
-                </li>
-                <li>
-                  <i class="far fa-heart"></i>
-                  <span>2</span>
-                </li>
-              </ul>
-              <ul class="post__bottom_box__admin_actions">
-              <li><%= link_to '編集', edit_post_path(post.id) %></li>
-              <li><%= link_to '削除', '/posts/' + post.id.to_s, method: :delete %></li>
-            </ul>
-          </div>
-        </div>
-      </li>
-    <% end %>
-    <% else %>
-      <% "まだ投稿されたスレッドはありません。" %>
+          </li>
+        <% end %>
+      <% else %>
+        <% "まだ投稿されたスレッドはありません。" %>
       <% end %>
     </ul>
   </div>
