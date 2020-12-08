@@ -1,17 +1,17 @@
-class FavoritesController < ApplicationController
+class LikesController < ApplicationController
   before_action :set_post
   before_action :authentcate_user.id
 
   def create
-      current_user.favorites.create(post_id: @post.id).delete
+      currenuser.likes.create(post_id: @post.id)
   end
 
   def destroy
-    current_user.favorites.find_by(id:params[:id]).delete
+    current_user.likes.find_by(id:params[:id]).delete
   end
 
 private
-  def favorited_post
+  def set_post
     @post = Post.find(params[:post_id])
   end
 
