@@ -41,33 +41,16 @@
                 </ul>
                 <ul class="post__bottom_box__admin_actions">
                   <% if user_signed_in? && current_user.id == post.user.id %>
-                    <li><%= link_to '編集', "#"%></li>
-                    <li><%= link_to '削除', "#"%></li>
+                    <li><%= link_to '編集', edit_post_path(post.id)%></li>
+                    <li><%= link_to '削除', '/posts/' + post.id.to_s, method: :delete%></li>
                   <% end %>
                 </ul>
               </div>
             </div>
-            <div class="post__bottom_box">
-              <ul class="post__bottom_box__user_actions">
-                <li>
-                  <i class="far fa-comment-alt"></i>
-                  <span>1</span>
-                </li>
-                <li>
-                  <i class="far fa-heart"></i>
-                  <span>2</span>
-                </li>
-              </ul>
-              <ul class="post__bottom_box__admin_actions">
-              <li><%= link_to '編集', edit_post_path(post.id) %></li>
-              <li><%= link_to '削除', '/posts/' + post.id.to_s, method: :delete %></li>
-            </ul>
-          </div>
-        </div>
-      </li>
-    <% end %>
-    <% else %>
-      <% "まだ投稿されたスレッドはありません。" %>
+          </li>
+        <% end %>
+      <% else %>
+        <% "まだ投稿されたスレッドはありません。" %>
       <% end %>
     </ul>
   </div>
