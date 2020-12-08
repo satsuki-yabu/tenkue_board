@@ -3,7 +3,7 @@ class LikesController < ApplicationController
   before_action :authentcate_user.id
 
   def create
-      currenuser.likes.create(post_id: @post.id)
+    current_user.likes.create(post_id: @post.id)
   end
 
   def destroy
