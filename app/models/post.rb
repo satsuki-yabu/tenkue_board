@@ -5,4 +5,8 @@ class Post < ApplicationRecord
 
   validates :content, presence: true, length: { maximum: 140 }
   validates :user_id, presence: true
+
+  def liked_by?(user)
+    self.likes.exists?(user_id: user.id)
+  end
 end

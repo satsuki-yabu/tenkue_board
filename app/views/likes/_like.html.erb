@@ -1,10 +1,11 @@
 <li id="likes-<%= post.id %>">
-  <% if user_signed_in? && current_user.likes %>
-    <%= link_to post_likes_path(post.id), data: { method: 'delete' }, remote: true do %>
-      <i class="fas fa-heart"></i>
+  <% if user_signed_in? && post.liked_by?(current_user) %>
+  <% like = Like.find_by(user_id: current_user.id, post_id: post.id) %>
+    <%= link_to post_like_path(post,like.id), data: { method: 'delete' }, remote: true ,id: "like-button-#{post.id}"  do %>
+      <i class="fas fa-heart"></i><span><%= post.likes.count %></span>
     <% end %>
   <% else %>
-    <%= link_to post_likes_path(post.id), data: { method: 'post' }, remote: true do %>
+    <%= link_to post_likes_path(post), data: { method: 'post' }, remote: true, id: "like-button-#{post.id}" do %>
       <i class="far fa-heart"></i>
       <span>
         <% if post.likes.present? %>
