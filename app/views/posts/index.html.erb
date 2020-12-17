@@ -35,8 +35,7 @@
                   </span>
                   </li>
                   <li>
-                    <i class="far fa-heart"></i>
-                    <span>いいね</span>
+                    <%= render partial: 'likes/like', locals: { post: post } %>
                   </li>
                 </ul>
                 <ul class="post__bottom_box__admin_actions">
