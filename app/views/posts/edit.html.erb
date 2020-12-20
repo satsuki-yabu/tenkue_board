@@ -5,6 +5,10 @@
         <span>投稿編集</span>
       </h3>
       <%# フォームを設置 %>
+      <%= form_with(model: @post, local: true) do |f| %>
+        <%= f.text_field :content, placeholder: @post.content %>
+        <%= f.submit "SEND" %>
+      <% end %>
     </div>
   </div>
 </div>
